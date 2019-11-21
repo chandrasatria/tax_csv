@@ -4,15 +4,15 @@ include *.json
 include *.md
 include *.py
 include *.txt
-recursive-include tax *.css
-recursive-include tax *.csv
-recursive-include tax *.html
-recursive-include tax *.ico
-recursive-include tax *.js
-recursive-include tax *.json
-recursive-include tax *.md
-recursive-include tax *.png
-recursive-include tax *.py
-recursive-include tax *.svg
-recursive-include tax *.txt
-recursive-exclude tax *.pyc
+recursive-include tax_csv *.css
+recursive-include tax_csv *.csv
+recursive-include tax_csv *.html
+recursive-include tax_csv *.ico
+recursive-include tax_csv *.js
+recursive-include tax_csv *.json
+recursive-include tax_csv *.md
+recursive-include tax_csv *.png
+recursive-include tax_csv *.py
+recursive-include tax_csv *.svg
+recursive-include tax_csv *.txt
+recursive-exclude tax_csv *.pyc
