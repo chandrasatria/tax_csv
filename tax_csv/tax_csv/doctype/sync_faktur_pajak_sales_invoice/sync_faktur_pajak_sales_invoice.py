@@ -19,6 +19,7 @@ class SyncFakturPajakSalesInvoice(Document):
 			sinv.`faktur_pajak` 
 			FROM `tabSales Invoice` sinv
 			WHERE sinv.`docstatus` = 1
+			and sinv.`efaktur` = 0
 			AND sinv.`is_return` = 0
 			AND (sinv.`faktur_pajak` = "" or sinv.`faktur_pajak` IS NULL)
 
