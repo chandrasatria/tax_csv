@@ -9,7 +9,6 @@ from frappe.model.document import Document
 from frappe.utils import cstr, flt, getdate, comma_and, cint, in_words
 from datetime import datetime
 
-
 class EFillingTool(Document):
 
 	def print_to_excel(self):
@@ -288,8 +287,6 @@ class EFillingTool(Document):
 
 			return item_list4
 
-
-
 	def get_data(self):
 		
 		if self.date_from and self.date_to :
@@ -429,6 +426,8 @@ class EFillingTool(Document):
 									total_ppn += float("{0:.3f}".format(((i[6]*10/100))))
 
 
+						if not total_dpp.is_integer():
+							total_dpp = round(total_dpp) 
 
 						pk = self.append('get_data_pajak_keluaran', {})
 						pk.masa_pajak				= a[0]
