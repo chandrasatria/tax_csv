@@ -429,6 +429,10 @@ class EFillingTool(Document):
 						if not total_dpp.is_integer():
 							total_dpp = round(total_dpp) 
 
+
+						if not total_ppn.is_integer():
+							total_ppn = round(total_ppn) 
+
 						pk = self.append('get_data_pajak_keluaran', {})
 						pk.masa_pajak				= a[0]
 						pk.tahun_pajak				= a[1]
