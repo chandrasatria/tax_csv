@@ -15,38 +15,38 @@ class EFillingTool(Document):
 
 	def print_to_excel(self):
 		
-		 return self.get_csv()
+		return self.get_csv()
 
 	def get_csv(self):
 		if self.kategori == "Faktur Pajak Masukan" :
 			
-		 	item_list=[" "]
-		 	item_list.append(['FM', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','IS_CREDITABLE','REFERENSI'])
-		 	
-		 	check = 0 
-		 	for i in self.get_data_pajak_masukan :
-		 		if(i.check==1) :
-		 			check=1
+			item_list=[" "]
+			item_list.append(['FM', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','IS_CREDITABLE','REFERENSI'])
+			
+			check = 0 
+			for i in self.get_data_pajak_masukan :
+				if(i.check==1) :
+					check=1
 
-		 	if(check==1) : 
+			if(check==1) : 
 				for a in self.get_data_pajak_masukan :
 					if(a.check==1) :
-		 					item_list.append([str(a.fm),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.masa_pajak),str(a.tahun_pajak),str(a.tanggal_faktur),str(a.npwp),str(a.nama),a.alamat_lengkap,str(a.jumlah_dpp),str(a.jumlah_ppn),str(a.jumlah_ppnbm),str(a.is_creditable),str(a.referensi)])
-		 		
+							item_list.append([str(a.fm),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.masa_pajak),str(a.tahun_pajak),str(a.tanggal_faktur),str(a.npwp),str(a.nama),a.alamat_lengkap,str(a.jumlah_dpp),str(a.jumlah_ppn),str(a.jumlah_ppnbm),str(a.is_creditable),str(a.referensi)])
+				
 			return item_list
 
 		elif self.kategori == "Faktur Pajak Keluaran" :
 			item_list2=[" "]
-		 	item_list2.append(['FK', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','ID_KETERANGAN_TAMBAHAN','FG_UANG_MUKA','UANG_MUKA_DPP','UANG_MUKA_PPN','UANG_MUKA_PPNBM','REFERENSI'])
-		 	item_list2.append(['OF','KODE_OBJECT', 'NAMA', 'HARGA_SATUAN', 'JUMLAH_BARANG', 'HARGA_TOTAL','DISKON', 'DPP', 'PPN','TARIF_PPNBM','PPNBM',"","","","","","","",""])
+			item_list2.append(['FK', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','ID_KETERANGAN_TAMBAHAN','FG_UANG_MUKA','UANG_MUKA_DPP','UANG_MUKA_PPN','UANG_MUKA_PPNBM','REFERENSI'])
+			item_list2.append(['OF','KODE_OBJECT', 'NAMA', 'HARGA_SATUAN', 'JUMLAH_BARANG', 'HARGA_TOTAL','DISKON', 'DPP', 'PPN','TARIF_PPNBM','PPNBM',"","","","","","","",""])
 
-		 	
-		 	check = 0 
-		 	for i in self.get_data_pajak_keluaran :
-		 		if(i.check==1) :
-		 			check=1
+			
+			check = 0 
+			for i in self.get_data_pajak_keluaran :
+				if(i.check==1) :
+					check=1
 
-		 	if(check==1) : 
+			if(check==1) : 
 				for a in self.get_data_pajak_keluaran :
 					if(a.check==1) :
 
@@ -85,208 +85,208 @@ class EFillingTool(Document):
 
 						if cek_included :
 							# anak = frappe.db.sql("""
-					 	# 		SELECT
-					 	# 		sinvi.`item_code`,
-					 	# 		sinvi.`item_name`,
-					 	# 		ifnull(sinvi.`price_list_rate`, sinvi.`rate`) as rate,
-					 	# 		((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-					 	# 		sinvi.`qty`,
-					 	# 		sinvi.`amount` as amount
+						# 		SELECT
+						# 		sinvi.`item_code`,
+						# 		sinvi.`item_name`,
+						# 		ifnull(sinvi.`price_list_rate`, sinvi.`rate`) as rate,
+						# 		((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+						# 		sinvi.`qty`,
+						# 		sinvi.`amount` as amount
 
-					 	# 		FROM `tabSales Invoice Item` sinvi
-					 	# 		WHERE sinvi.`parent` = "{}" 
+						# 		FROM `tabSales Invoice Item` sinvi
+						# 		WHERE sinvi.`parent` = "{}" 
 							# """.format(a.referensi),as_list=1)
 
 							anak = frappe.db.sql("""
-					 			SELECT
-					 			sinvi.`item_code`,
-					 			sinvi.`item_name`,
-					 			ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
-					 			ifnull(sinvi.`rate`, 0) as rate,
-					 			((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-					 			sinvi.`qty`,
-					 			sinvi.`amount` as amount
+								SELECT
+								sinvi.`item_code`,
+								sinvi.`item_name`,
+								ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
+								ifnull(sinvi.`rate`, 0) as rate,
+								((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+								sinvi.`qty`,
+								sinvi.`amount` as amount
 
-					 			FROM `tabSales Invoice Item` sinvi
-					 			WHERE sinvi.`parent` = "{}" 
+								FROM `tabSales Invoice Item` sinvi
+								WHERE sinvi.`parent` = "{}" 
 							""".format(a.referensi),as_list=1)
 
-					 		if anak :
-					 			for i in anak :
+							if anak :
+								for i in anak :
 
-					 				# revisi rico
-					 				
-					 				kode_object = str(i[0])
-					 				nama_item = str(i[1])
+									# revisi rico
+									
+									kode_object = str(i[0])
+									nama_item = str(i[1])
 
-					 				# if rate > price list rate
-					 				harga_satuan = 0
-					 				if i[3] > i[2] :
+									# if rate > price list rate
+									harga_satuan = 0
+									if i[3] > i[2] :
 
-					 					harga_satuan = "{0:.5f}".format((i[3]*10/11))
-					 				else :
-					 					harga_satuan = "{0:.5f}".format((i[2]*10/11))
+										harga_satuan = "{0:.5f}".format((i[3]*10/11))
+									else :
+										harga_satuan = "{0:.5f}".format((i[2]*10/11))
 
-					 				jumlah_barang = str(i[5])
+									jumlah_barang = str(i[5])
 
-					 				# if rate > price list rate
-					 				harga_total = 0
-					 				if i[3] > i[2] :
-					 					harga_total = "{0:.5f}".format(((i[3]*i[5])*10/11))
-					 				else :
-					 					harga_total = "{0:.5f}".format(((i[2]*i[5])*10/11))
+									# if rate > price list rate
+									harga_total = 0
+									if i[3] > i[2] :
+										harga_total = "{0:.5f}".format(((i[3]*i[5])*10/11))
+									else :
+										harga_total = "{0:.5f}".format(((i[2]*i[5])*10/11))
 
-					 				# if rate > price list rate
-					 				diskon = 0
-					 				if i[3] > i[2] :
-					 					diskon = 0
-					 				else :
-					 					diskon = "{0:.5f}".format((i[4]*10/11))
+									# if rate > price list rate
+									diskon = 0
+									if i[3] > i[2] :
+										diskon = 0
+									else :
+										diskon = "{0:.5f}".format((i[4]*10/11))
 
-					 				dpp = "{0:.4f}".format((i[6]*10/11))
-					 				ppn = "{0:.3f}".format(((i[6]*10/11)*10/100))
+									dpp = "{0:.4f}".format((i[6]*10/11))
+									ppn = "{0:.3f}".format(((i[6]*10/11)*10/100))
 
-					 				tarif_ppnbm = 0
-					 				ppnbm = 0
+									tarif_ppnbm = 0
+									ppnbm = 0
 
 
-				 					item_list2.append([
-				 						'OF',
-				 						kode_object,
-				 						nama_item,
-				 						harga_satuan,  
-				 						jumlah_barang,  
-				 						harga_total,  
-				 						diskon, 
-				 						dpp, 
-				 						ppn, 
-				 						tarif_ppnbm,
-				 						ppnbm,
-				 						"","","","","","","",""])
+									item_list2.append([
+										'OF',
+										kode_object,
+										nama_item,
+										harga_satuan,  
+										jumlah_barang,  
+										harga_total,  
+										diskon, 
+										dpp, 
+										ppn, 
+										tarif_ppnbm,
+										ppnbm,
+										"","","","","","","",""])
 
 						else :
-					 	# 	anak = frappe.db.sql("""
-					 	# 		SELECT
-					 	# 		sinvi.`item_code`,
-					 	# 		sinvi.`item_name`,
-					 	# 		ifnull(sinvi.`price_list_rate`,sinvi.`rate`) as rate,
-					 	# 		((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-					 	# 		sinvi.`qty`,
-					 	# 		sinvi.`amount` as amount
-					 	# 		FROM `tabSales Invoice Item` sinvi
-					 	# 		WHERE sinvi.`parent` = "{}" 
+						# 	anak = frappe.db.sql("""
+						# 		SELECT
+						# 		sinvi.`item_code`,
+						# 		sinvi.`item_name`,
+						# 		ifnull(sinvi.`price_list_rate`,sinvi.`rate`) as rate,
+						# 		((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+						# 		sinvi.`qty`,
+						# 		sinvi.`amount` as amount
+						# 		FROM `tabSales Invoice Item` sinvi
+						# 		WHERE sinvi.`parent` = "{}" 
 							# """.format(a.referensi),as_list=1)
 
-					 	# 	if anak :
-					 	# 		for i in anak :
-				 		# 			item_list2.append([
-				 		# 				'OF',
-				 		# 				str(i[0]),
-				 		# 				str(i[1]),
-				 		# 				str(i[2]),
-				 		# 				str(i[4]),
-				 		# 				str(i[2]*i[4]),
-				 		# 				str(i[3]),
-				 		# 				str(i[5]),
-				 		# 				str(i[5]*10/100),
-				 		# 				str(0),
-				 		# 				str(0),
-				 		# 				"","","","","","","",""])
-				 		# revisi rico
-				 			anak = frappe.db.sql("""
-					 			SELECT
-					 			sinvi.`item_code`,
-					 			sinvi.`item_name`,
-					 			ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
-					 			ifnull(sinvi.`rate`, 0) as rate,
-					 			((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-					 			sinvi.`qty`,
-					 			sinvi.`amount` as amount
+						# 	if anak :
+						# 		for i in anak :
+						# 			item_list2.append([
+						# 				'OF',
+						# 				str(i[0]),
+						# 				str(i[1]),
+						# 				str(i[2]),
+						# 				str(i[4]),
+						# 				str(i[2]*i[4]),
+						# 				str(i[3]),
+						# 				str(i[5]),
+						# 				str(i[5]*10/100),
+						# 				str(0),
+						# 				str(0),
+						# 				"","","","","","","",""])
+						# revisi rico
+							anak = frappe.db.sql("""
+								SELECT
+								sinvi.`item_code`,
+								sinvi.`item_name`,
+								ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
+								ifnull(sinvi.`rate`, 0) as rate,
+								((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+								sinvi.`qty`,
+								sinvi.`amount` as amount
 
-					 			FROM `tabSales Invoice Item` sinvi
-					 			WHERE sinvi.`parent` = "{}" 
+								FROM `tabSales Invoice Item` sinvi
+								WHERE sinvi.`parent` = "{}" 
 							""".format(a.referensi),as_list=1)
 
-					 		if anak :
-					 			for i in anak :
+							if anak :
+								for i in anak :
 
-					 				kode_object = str(i[0])
-					 				nama_item = str(i[1])
+									kode_object = str(i[0])
+									nama_item = str(i[1])
 
-					 				# if rate > price list rate
-					 				harga_satuan = 0
-					 				if i[3] > i[2] :
-					 					harga_satuan = "{0:.5f}".format((i[3]))
-					 				else :
-					 					harga_satuan = "{0:.5f}".format((i[2]))
+									# if rate > price list rate
+									harga_satuan = 0
+									if i[3] > i[2] :
+										harga_satuan = "{0:.5f}".format((i[3]))
+									else :
+										harga_satuan = "{0:.5f}".format((i[2]))
 
-					 				jumlah_barang = str(i[5])
+									jumlah_barang = str(i[5])
 
-					 				# if rate > price list rate
-					 				harga_total = 0
-					 				if i[3] > i[2] :
-					 					harga_total = "{0:.5f}".format(((i[3]*i[5])))
-					 				else :
-					 					harga_total = "{0:.5f}".format(((i[2]*i[5])))
+									# if rate > price list rate
+									harga_total = 0
+									if i[3] > i[2] :
+										harga_total = "{0:.5f}".format(((i[3]*i[5])))
+									else :
+										harga_total = "{0:.5f}".format(((i[2]*i[5])))
 
-					 				# if rate > price list rate
-					 				diskon = 0
-					 				if i[3] > i[2] :
-					 					diskon = 0
-					 				else :
-					 					diskon = "{0:.5f}".format((i[4]))
+									# if rate > price list rate
+									diskon = 0
+									if i[3] > i[2] :
+										diskon = 0
+									else :
+										diskon = "{0:.5f}".format((i[4]))
 
-					 				dpp = "{0:.4f}".format((i[6]))
-					 				ppn = "{0:.3f}".format(((i[6]*10/100)))
+									dpp = "{0:.4f}".format((i[6]))
+									ppn = "{0:.3f}".format(((i[6]*10/100)))
 
-					 				tarif_ppnbm = 0
-					 				ppnbm = 0
+									tarif_ppnbm = 0
+									ppnbm = 0
 
 
-				 					item_list2.append([
-				 						'OF',
-				 						kode_object,
-				 						nama_item,
-				 						harga_satuan,  
-				 						jumlah_barang,  
-				 						harga_total,  
-				 						diskon, 
-				 						dpp, 
-				 						ppn, 
-				 						tarif_ppnbm,
-				 						ppnbm,
-				 						"","","","","","","",""])
+									item_list2.append([
+										'OF',
+										kode_object,
+										nama_item,
+										harga_satuan,  
+										jumlah_barang,  
+										harga_total,  
+										diskon, 
+										dpp, 
+										ppn, 
+										tarif_ppnbm,
+										ppnbm,
+										"","","","","","","",""])
 
 			return item_list2
 
 		elif self.kategori == "Faktur Pajak Retur Masukan" :
 			item_list3=[" "]
-		 	item_list3.append(['RM','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR', 'IS_CREDITABLE','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
-		 	
-		 	check = 0 
-		 	for i in self.get_data_retur_masukan :
-		 		if(i.check==1) :
-		 			check=1
+			item_list3.append(['RM','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR', 'IS_CREDITABLE','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
+			
+			check = 0 
+			for i in self.get_data_retur_masukan :
+				if(i.check==1) :
+					check=1
 
-		 	if(check==1) : 
+			if(check==1) : 
 				for a in self.get_data_retur_masukan :
 					if(a.check==1) :
-		 				item_list3.append([str(a.rm),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.is_creditable),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
+						item_list3.append([str(a.rm),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.is_creditable),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
 
 			return item_list3
 
 		elif self.kategori == "Faktur Pajak Retur Keluaran" :
 			item_list4=[" "]
-		 	item_list4.append(['RK','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
-		 	
-		 	check = 0 
-		 	for i in self.get_data_retur_keluaran :
-		 		if(i.check==1) :
-		 			check=1
-		 	if(check==1) : 
+			item_list4.append(['RK','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
+			
+			check = 0 
+			for i in self.get_data_retur_keluaran :
+				if(i.check==1) :
+					check=1
+			if(check==1) : 
 				for a in self.get_data_retur_keluaran :
 					if(a.check==1) :
-		 				item_list4.append([str(a.rk),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
+						item_list4.append([str(a.rk),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
 
 			return item_list4
 
@@ -365,7 +365,7 @@ class EFillingTool(Document):
 
 					
 
-					 """.format(self.date_from,self.date_to),as_list=1)
+					""".format(self.date_from,self.date_to),as_list=1)
 
 				if data_pajak_keluaran :
 
@@ -389,52 +389,52 @@ class EFillingTool(Document):
 						if cek_included :
 							
 							anak = frappe.db.sql("""
-					 			SELECT
-					 			sinvi.`item_code`,
-					 			sinvi.`item_name`,
-					 			ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
-					 			ifnull(sinvi.`rate`, 0) as rate,
-					 			((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-					 			sinvi.`qty`,
-					 			sinvi.`amount` as amount
+								SELECT
+								sinvi.`item_code`,
+								sinvi.`item_name`,
+								ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
+								ifnull(sinvi.`rate`, 0) as rate,
+								((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+								sinvi.`qty`,
+								sinvi.`amount` as amount
 
-					 			FROM `tabSales Invoice Item` sinvi
-					 			WHERE sinvi.`parent` = "{}" 
+								FROM `tabSales Invoice Item` sinvi
+								WHERE sinvi.`parent` = "{}" 
 							""".format(a[5]),as_list=1)
 
-					 		if anak :
-					 			for i in anak :
-					 				total_dpp += float("{0:.4f}".format((i[6]*10/11)))
-					 				total_ppn += float("{0:.3f}".format(((i[6]*10/11)*10/100)))
+							if anak :
+								for i in anak :
+									total_dpp += float("{0:.4f}".format((i[6]*10/11)))
+									total_ppn += float("{0:.3f}".format(((i[6]*10/11)*10/100)))
 
-					 		# edit andy
-					 		if not total_dpp.is_integer():
-								total_dpp = round(total_dpp) 
+							# edit andy
+							# if not total_dpp.is_integer():
+							# 	total_dpp = round(total_dpp) 
 
 
-							if not total_ppn.is_integer():
-								total_ppn = round(total_ppn)
+							# if not total_ppn.is_integer():
+							# 	total_ppn = round(total_ppn)
 
 						else :
 
-				 			anak = frappe.db.sql("""
-					 			SELECT
-					 			sinvi.`item_code`,
-					 			sinvi.`item_name`,
-					 			ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
-					 			ifnull(sinvi.`rate`, 0) as rate,
-					 			((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-					 			sinvi.`qty`,
-					 			sinvi.`amount` as amount
+							anak = frappe.db.sql("""
+								SELECT
+								sinvi.`item_code`,
+								sinvi.`item_name`,
+								ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
+								ifnull(sinvi.`rate`, 0) as rate,
+								((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+								sinvi.`qty`,
+								sinvi.`amount` as amount
 
-					 			FROM `tabSales Invoice Item` sinvi
-					 			WHERE sinvi.`parent` = "{}" 
+								FROM `tabSales Invoice Item` sinvi
+								WHERE sinvi.`parent` = "{}" 
 							""".format(a[5]),as_list=1)
 
-					 		if anak :
-					 			for i in anak :
-					 				total_dpp += float("{0:.4f}".format((i[6])))
-					 				total_ppn += float("{0:.3f}".format(((i[6]*10/100))))
+							if anak :
+								for i in anak :
+									total_dpp += float("{0:.4f}".format((i[6])))
+									total_ppn += float("{0:.3f}".format(((i[6]*10/100))))
 
 
 
@@ -693,38 +693,38 @@ class EFillingTool(Document):
 
 	# def print_to_excel(self):
 		
-	# 	 	return self.get_csv()
+	# 		return self.get_csv()
 
 	# def get_csv(self):
 	# 	if self.kategori == "Faktur Pajak Masukan" :
 			
-	# 	 	item_list=[" "]
-	# 	 	item_list.append(['FM', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','IS_CREDITABLE','REFERENSI'])
-		 	
-	# 	 	check = 0 
-	# 	 	for i in self.get_data_pajak_masukan :
-	# 	 		if(i.check==1) :
-	# 	 			check=1
+	# 		item_list=[" "]
+	# 		item_list.append(['FM', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','IS_CREDITABLE','REFERENSI'])
+			
+	# 		check = 0 
+	# 		for i in self.get_data_pajak_masukan :
+	# 			if(i.check==1) :
+	# 				check=1
 
-	# 	 	if(check==1) : 
+	# 		if(check==1) : 
 	# 			for a in self.get_data_pajak_masukan :
 	# 				if(a.check==1) :
-	# 	 					item_list.append([str(a.fm),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.masa_pajak),str(a.tahun_pajak),str(a.tanggal_faktur),str(a.npwp),str(a.nama),a.alamat_lengkap,str(a.jumlah_dpp),str(a.jumlah_ppn),str(a.jumlah_ppnbm),str(a.is_creditable),str(a.referensi)])
-		 		
+	# 						item_list.append([str(a.fm),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.masa_pajak),str(a.tahun_pajak),str(a.tanggal_faktur),str(a.npwp),str(a.nama),a.alamat_lengkap,str(a.jumlah_dpp),str(a.jumlah_ppn),str(a.jumlah_ppnbm),str(a.is_creditable),str(a.referensi)])
+				
 	# 		return item_list
 
 	# 	elif self.kategori == "Faktur Pajak Keluaran" :
 	# 		item_list2=[" "]
-	# 	 	item_list2.append(['FK', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','ID_KETERANGAN_TAMBAHAN','FG_UANG_MUKA','UANG_MUKA_DPP','UANG_MUKA_PPN','UANG_MUKA_PPNBM','REFERENSI'])
-	# 	 	item_list2.append(['OF','KODE_OBJECT', 'NAMA', 'HARGA_SATUAN', 'JUMLAH_BARANG', 'HARGA_TOTAL','DISKON', 'DPP', 'PPN','TARIF_PPNBM','PPNBM',"","","","","","","",""])
+	# 		item_list2.append(['FK', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','ID_KETERANGAN_TAMBAHAN','FG_UANG_MUKA','UANG_MUKA_DPP','UANG_MUKA_PPN','UANG_MUKA_PPNBM','REFERENSI'])
+	# 		item_list2.append(['OF','KODE_OBJECT', 'NAMA', 'HARGA_SATUAN', 'JUMLAH_BARANG', 'HARGA_TOTAL','DISKON', 'DPP', 'PPN','TARIF_PPNBM','PPNBM',"","","","","","","",""])
 
-		 	
-	# 	 	check = 0 
-	# 	 	for i in self.get_data_pajak_keluaran :
-	# 	 		if(i.check==1) :
-	# 	 			check=1
+			
+	# 		check = 0 
+	# 		for i in self.get_data_pajak_keluaran :
+	# 			if(i.check==1) :
+	# 				check=1
 
-	# 	 	if(check==1) : 
+	# 		if(check==1) : 
 	# 			for a in self.get_data_pajak_keluaran :
 	# 				if(a.check==1) :
 
@@ -763,208 +763,208 @@ class EFillingTool(Document):
 
 	# 					if cek_included :
 	# 						# anak = frappe.db.sql("""
-	# 				 	# 		SELECT
-	# 				 	# 		sinvi.`item_code`,
-	# 				 	# 		sinvi.`item_name`,
-	# 				 	# 		ifnull(sinvi.`price_list_rate`, sinvi.`rate`) as rate,
-	# 				 	# 		((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-	# 				 	# 		sinvi.`qty`,
-	# 				 	# 		sinvi.`amount` as amount
+	# 					# 		SELECT
+	# 					# 		sinvi.`item_code`,
+	# 					# 		sinvi.`item_name`,
+	# 					# 		ifnull(sinvi.`price_list_rate`, sinvi.`rate`) as rate,
+	# 					# 		((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+	# 					# 		sinvi.`qty`,
+	# 					# 		sinvi.`amount` as amount
 
-	# 				 	# 		FROM `tabSales Invoice Item` sinvi
-	# 				 	# 		WHERE sinvi.`parent` = "{}" 
+	# 					# 		FROM `tabSales Invoice Item` sinvi
+	# 					# 		WHERE sinvi.`parent` = "{}" 
 	# 						# """.format(a.referensi),as_list=1)
 
 	# 						anak = frappe.db.sql("""
-	# 				 			SELECT
-	# 				 			sinvi.`item_code`,
-	# 				 			sinvi.`item_name`,
-	# 				 			ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
-	# 				 			ifnull(sinvi.`rate`, 0) as rate,
-	# 				 			((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-	# 				 			sinvi.`qty`,
-	# 				 			sinvi.`amount` as amount
+	# 							SELECT
+	# 							sinvi.`item_code`,
+	# 							sinvi.`item_name`,
+	# 							ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
+	# 							ifnull(sinvi.`rate`, 0) as rate,
+	# 							((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+	# 							sinvi.`qty`,
+	# 							sinvi.`amount` as amount
 
-	# 				 			FROM `tabSales Invoice Item` sinvi
-	# 				 			WHERE sinvi.`parent` = "{}" 
+	# 							FROM `tabSales Invoice Item` sinvi
+	# 							WHERE sinvi.`parent` = "{}" 
 	# 						""".format(a.referensi),as_list=1)
 
-	# 				 		if anak :
-	# 				 			for i in anak :
+	# 						if anak :
+	# 							for i in anak :
 
-	# 				 				# revisi rico
-					 				
-	# 				 				kode_object = str(i[0])
-	# 				 				nama_item = str(i[1])
+	# 								# revisi rico
+									
+	# 								kode_object = str(i[0])
+	# 								nama_item = str(i[1])
 
-	# 				 				# if rate > price list rate
-	# 				 				harga_satuan = 0
-	# 				 				if i[3] > i[2] :
+	# 								# if rate > price list rate
+	# 								harga_satuan = 0
+	# 								if i[3] > i[2] :
 
-	# 				 					harga_satuan = "{0:.5f}".format((i[3]*10/11))
-	# 				 				else :
-	# 				 					harga_satuan = "{0:.5f}".format((i[2]*10/11))
+	# 									harga_satuan = "{0:.5f}".format((i[3]*10/11))
+	# 								else :
+	# 									harga_satuan = "{0:.5f}".format((i[2]*10/11))
 
-	# 				 				jumlah_barang = str(i[5])
+	# 								jumlah_barang = str(i[5])
 
-	# 				 				# if rate > price list rate
-	# 				 				harga_total = 0
-	# 				 				if i[3] > i[2] :
-	# 				 					harga_total = "{0:.5f}".format(((i[3]*i[5])*10/11))
-	# 				 				else :
-	# 				 					harga_total = "{0:.5f}".format(((i[2]*i[5])*10/11))
+	# 								# if rate > price list rate
+	# 								harga_total = 0
+	# 								if i[3] > i[2] :
+	# 									harga_total = "{0:.5f}".format(((i[3]*i[5])*10/11))
+	# 								else :
+	# 									harga_total = "{0:.5f}".format(((i[2]*i[5])*10/11))
 
-	# 				 				# if rate > price list rate
-	# 				 				diskon = 0
-	# 				 				if i[3] > i[2] :
-	# 				 					diskon = 0
-	# 				 				else :
-	# 				 					diskon = "{0:.5f}".format((i[4]))
+	# 								# if rate > price list rate
+	# 								diskon = 0
+	# 								if i[3] > i[2] :
+	# 									diskon = 0
+	# 								else :
+	# 									diskon = "{0:.5f}".format((i[4]))
 
-	# 				 				dpp = "{0:.2f}".format((i[6]*10/11))
-	# 				 				ppn = "{0:.2f}".format(((i[6]*10/11)*10/100))
+	# 								dpp = "{0:.2f}".format((i[6]*10/11))
+	# 								ppn = "{0:.2f}".format(((i[6]*10/11)*10/100))
 
-	# 				 				tarif_ppnbm = 0
-	# 				 				ppnbm = 0
+	# 								tarif_ppnbm = 0
+	# 								ppnbm = 0
 
 
-	# 			 					item_list2.append([
-	# 			 						'OF',
-	# 			 						kode_object,
-	# 			 						nama_item,
-	# 			 						harga_satuan,  
-	# 			 						jumlah_barang,  
-	# 			 						harga_total,  
-	# 			 						diskon, 
-	# 			 						dpp, 
-	# 			 						ppn, 
-	# 			 						tarif_ppnbm,
-	# 			 						ppnbm,
-	# 			 						"","","","","","","",""])
+	# 								item_list2.append([
+	# 									'OF',
+	# 									kode_object,
+	# 									nama_item,
+	# 									harga_satuan,  
+	# 									jumlah_barang,  
+	# 									harga_total,  
+	# 									diskon, 
+	# 									dpp, 
+	# 									ppn, 
+	# 									tarif_ppnbm,
+	# 									ppnbm,
+	# 									"","","","","","","",""])
 
 	# 					else :
-	# 				 	# 	anak = frappe.db.sql("""
-	# 				 	# 		SELECT
-	# 				 	# 		sinvi.`item_code`,
-	# 				 	# 		sinvi.`item_name`,
-	# 				 	# 		ifnull(sinvi.`price_list_rate`,sinvi.`rate`) as rate,
-	# 				 	# 		((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-	# 				 	# 		sinvi.`qty`,
-	# 				 	# 		sinvi.`amount` as amount
-	# 				 	# 		FROM `tabSales Invoice Item` sinvi
-	# 				 	# 		WHERE sinvi.`parent` = "{}" 
+	# 					# 	anak = frappe.db.sql("""
+	# 					# 		SELECT
+	# 					# 		sinvi.`item_code`,
+	# 					# 		sinvi.`item_name`,
+	# 					# 		ifnull(sinvi.`price_list_rate`,sinvi.`rate`) as rate,
+	# 					# 		((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+	# 					# 		sinvi.`qty`,
+	# 					# 		sinvi.`amount` as amount
+	# 					# 		FROM `tabSales Invoice Item` sinvi
+	# 					# 		WHERE sinvi.`parent` = "{}" 
 	# 						# """.format(a.referensi),as_list=1)
 
-	# 				 	# 	if anak :
-	# 				 	# 		for i in anak :
-	# 			 		# 			item_list2.append([
-	# 			 		# 				'OF',
-	# 			 		# 				str(i[0]),
-	# 			 		# 				str(i[1]),
-	# 			 		# 				str(i[2]),
-	# 			 		# 				str(i[4]),
-	# 			 		# 				str(i[2]*i[4]),
-	# 			 		# 				str(i[3]),
-	# 			 		# 				str(i[5]),
-	# 			 		# 				str(i[5]*10/100),
-	# 			 		# 				str(0),
-	# 			 		# 				str(0),
-	# 			 		# 				"","","","","","","",""])
-	# 			 		# revisi rico
-	# 			 			anak = frappe.db.sql("""
-	# 				 			SELECT
-	# 				 			sinvi.`item_code`,
-	# 				 			sinvi.`item_name`,
-	# 				 			ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
-	# 				 			ifnull(sinvi.`rate`, 0) as rate,
-	# 				 			((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-	# 				 			sinvi.`qty`,
-	# 				 			sinvi.`amount` as amount
+	# 					# 	if anak :
+	# 					# 		for i in anak :
+	# 					# 			item_list2.append([
+	# 					# 				'OF',
+	# 					# 				str(i[0]),
+	# 					# 				str(i[1]),
+	# 					# 				str(i[2]),
+	# 					# 				str(i[4]),
+	# 					# 				str(i[2]*i[4]),
+	# 					# 				str(i[3]),
+	# 					# 				str(i[5]),
+	# 					# 				str(i[5]*10/100),
+	# 					# 				str(0),
+	# 					# 				str(0),
+	# 					# 				"","","","","","","",""])
+	# 					# revisi rico
+	# 						anak = frappe.db.sql("""
+	# 							SELECT
+	# 							sinvi.`item_code`,
+	# 							sinvi.`item_name`,
+	# 							ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
+	# 							ifnull(sinvi.`rate`, 0) as rate,
+	# 							((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+	# 							sinvi.`qty`,
+	# 							sinvi.`amount` as amount
 
-	# 				 			FROM `tabSales Invoice Item` sinvi
-	# 				 			WHERE sinvi.`parent` = "{}" 
+	# 							FROM `tabSales Invoice Item` sinvi
+	# 							WHERE sinvi.`parent` = "{}" 
 	# 						""".format(a.referensi),as_list=1)
 
-	# 				 		if anak :
-	# 				 			for i in anak :
+	# 						if anak :
+	# 							for i in anak :
 
-	# 				 				kode_object = str(i[0])
-	# 				 				nama_item = str(i[1])
+	# 								kode_object = str(i[0])
+	# 								nama_item = str(i[1])
 
-	# 				 				# if rate > price list rate
-	# 				 				harga_satuan = 0
-	# 				 				if i[3] > i[2] :
-	# 				 					harga_satuan = "{0:.5f}".format((i[3]))
-	# 				 				else :
-	# 				 					harga_satuan = "{0:.5f}".format((i[2]))
+	# 								# if rate > price list rate
+	# 								harga_satuan = 0
+	# 								if i[3] > i[2] :
+	# 									harga_satuan = "{0:.5f}".format((i[3]))
+	# 								else :
+	# 									harga_satuan = "{0:.5f}".format((i[2]))
 
-	# 				 				jumlah_barang = str(i[5])
+	# 								jumlah_barang = str(i[5])
 
-	# 				 				# if rate > price list rate
-	# 				 				harga_total = 0
-	# 				 				if i[3] > i[2] :
-	# 				 					harga_total = "{0:.5f}".format(((i[3]*i[5])))
-	# 				 				else :
-	# 				 					harga_total = "{0:.5f}".format(((i[2]*i[5])))
+	# 								# if rate > price list rate
+	# 								harga_total = 0
+	# 								if i[3] > i[2] :
+	# 									harga_total = "{0:.5f}".format(((i[3]*i[5])))
+	# 								else :
+	# 									harga_total = "{0:.5f}".format(((i[2]*i[5])))
 
-	# 				 				# if rate > price list rate
-	# 				 				diskon = 0
-	# 				 				if i[3] > i[2] :
-	# 				 					diskon = 0
-	# 				 				else :
-	# 				 					diskon = "{0:.5f}".format((i[4]))
+	# 								# if rate > price list rate
+	# 								diskon = 0
+	# 								if i[3] > i[2] :
+	# 									diskon = 0
+	# 								else :
+	# 									diskon = "{0:.5f}".format((i[4]))
 
-	# 				 				dpp = "{0:.2f}".format((i[6]))
-	# 				 				ppn = "{0:.2f}".format(((i[6]*10/100)))
+	# 								dpp = "{0:.2f}".format((i[6]))
+	# 								ppn = "{0:.2f}".format(((i[6]*10/100)))
 
-	# 				 				tarif_ppnbm = 0
-	# 				 				ppnbm = 0
+	# 								tarif_ppnbm = 0
+	# 								ppnbm = 0
 
 
-	# 			 					item_list2.append([
-	# 			 						'OF',
-	# 			 						kode_object,
-	# 			 						nama_item,
-	# 			 						harga_satuan,  
-	# 			 						jumlah_barang,  
-	# 			 						harga_total,  
-	# 			 						diskon, 
-	# 			 						dpp, 
-	# 			 						ppn, 
-	# 			 						tarif_ppnbm,
-	# 			 						ppnbm,
-	# 			 						"","","","","","","",""])
+	# 								item_list2.append([
+	# 									'OF',
+	# 									kode_object,
+	# 									nama_item,
+	# 									harga_satuan,  
+	# 									jumlah_barang,  
+	# 									harga_total,  
+	# 									diskon, 
+	# 									dpp, 
+	# 									ppn, 
+	# 									tarif_ppnbm,
+	# 									ppnbm,
+	# 									"","","","","","","",""])
 
 	# 		return item_list2
 
 	# 	elif self.kategori == "Faktur Pajak Retur Masukan" :
 	# 		item_list3=[" "]
-	# 	 	item_list3.append(['RM','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR', 'IS_CREDITABLE','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
-		 	
-	# 	 	check = 0 
-	# 	 	for i in self.get_data_retur_masukan :
-	# 	 		if(i.check==1) :
-	# 	 			check=1
+	# 		item_list3.append(['RM','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR', 'IS_CREDITABLE','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
+			
+	# 		check = 0 
+	# 		for i in self.get_data_retur_masukan :
+	# 			if(i.check==1) :
+	# 				check=1
 
-	# 	 	if(check==1) : 
+	# 		if(check==1) : 
 	# 			for a in self.get_data_retur_masukan :
 	# 				if(a.check==1) :
-	# 	 				item_list3.append([str(a.rm),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.is_creditable),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
+	# 					item_list3.append([str(a.rm),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.is_creditable),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
 
 	# 		return item_list3
 
 	# 	elif self.kategori == "Faktur Pajak Retur Keluaran" :
 	# 		item_list4=[" "]
-	# 	 	item_list4.append(['RK','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
-		 	
-	# 	 	check = 0 
-	# 	 	for i in self.get_data_retur_keluaran :
-	# 	 		if(i.check==1) :
-	# 	 			check=1
-	# 	 	if(check==1) : 
+	# 		item_list4.append(['RK','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
+			
+	# 		check = 0 
+	# 		for i in self.get_data_retur_keluaran :
+	# 			if(i.check==1) :
+	# 				check=1
+	# 		if(check==1) : 
 	# 			for a in self.get_data_retur_keluaran :
 	# 				if(a.check==1) :
-	# 	 				item_list4.append([str(a.rk),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
+	# 					item_list4.append([str(a.rk),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
 
 	# 		return item_list4
 
@@ -1063,44 +1063,44 @@ class EFillingTool(Document):
 	# 					if cek_included :
 							
 	# 						anak = frappe.db.sql("""
-	# 				 			SELECT
-	# 				 			sinvi.`item_code`,
-	# 				 			sinvi.`item_name`,
-	# 				 			ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
-	# 				 			ifnull(sinvi.`rate`, 0) as rate,
-	# 				 			((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-	# 				 			sinvi.`qty`,
-	# 				 			sinvi.`amount` as amount
+	# 							SELECT
+	# 							sinvi.`item_code`,
+	# 							sinvi.`item_name`,
+	# 							ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
+	# 							ifnull(sinvi.`rate`, 0) as rate,
+	# 							((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+	# 							sinvi.`qty`,
+	# 							sinvi.`amount` as amount
 
-	# 				 			FROM `tabSales Invoice Item` sinvi
-	# 				 			WHERE sinvi.`parent` = "{}" 
+	# 							FROM `tabSales Invoice Item` sinvi
+	# 							WHERE sinvi.`parent` = "{}" 
 	# 						""".format(a[5]),as_list=1)
 
-	# 				 		if anak :
-	# 				 			for i in anak :
-	# 				 				total_dpp += float("{0:.5f}".format((i[6]*10/11)))
-	# 				 				total_ppn += float("{0:.6f}".format(((i[6]*10/11)*10/100)))
+	# 						if anak :
+	# 							for i in anak :
+	# 								total_dpp += float("{0:.5f}".format((i[6]*10/11)))
+	# 								total_ppn += float("{0:.6f}".format(((i[6]*10/11)*10/100)))
 
 	# 					else :
 
-	# 			 			anak = frappe.db.sql("""
-	# 				 			SELECT
-	# 				 			sinvi.`item_code`,
-	# 				 			sinvi.`item_name`,
-	# 				 			ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
-	# 				 			ifnull(sinvi.`rate`, 0) as rate,
-	# 				 			((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
-	# 				 			sinvi.`qty`,
-	# 				 			sinvi.`amount` as amount
+	# 						anak = frappe.db.sql("""
+	# 							SELECT
+	# 							sinvi.`item_code`,
+	# 							sinvi.`item_name`,
+	# 							ifnull(sinvi.`price_list_rate`,0) as price_list_rate,
+	# 							ifnull(sinvi.`rate`, 0) as rate,
+	# 							((sinvi.`price_list_rate` - sinvi.`rate`) * sinvi.`qty`) as discount,
+	# 							sinvi.`qty`,
+	# 							sinvi.`amount` as amount
 
-	# 				 			FROM `tabSales Invoice Item` sinvi
-	# 				 			WHERE sinvi.`parent` = "{}" 
+	# 							FROM `tabSales Invoice Item` sinvi
+	# 							WHERE sinvi.`parent` = "{}" 
 	# 						""".format(a[5]),as_list=1)
 
-	# 				 		if anak :
-	# 				 			for i in anak :
-	# 				 				total_dpp += float("{0:.5f}".format((i[6])))
-	# 				 				total_ppn += float("{0:.6f}".format(((i[6]*10/100))))
+	# 						if anak :
+	# 							for i in anak :
+	# 								total_dpp += float("{0:.5f}".format((i[6])))
+	# 								total_ppn += float("{0:.6f}".format(((i[6]*10/100))))
 
 
 
@@ -1725,7 +1725,7 @@ class EFillingTool(Document):
 
 					
 
-# 					 """.format(self.date_from,self.date_to),as_list=1)
+# 					""".format(self.date_from,self.date_to),as_list=1)
 
 # 				if data_pajak_keluaran :
 
