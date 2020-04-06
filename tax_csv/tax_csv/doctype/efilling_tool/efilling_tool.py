@@ -362,7 +362,7 @@ class EFillingTool(Document):
 					from `tabSales Invoice` pm
 					left JOIN `tabCustomer` cus ON cus.name=pm.customer
 					where pm.`docstatus` = 1 and pm.is_return != 1 AND pm.`posting_date`  between "{0}" and "{1}"
-
+					and (pm.faktur_pajak <> "" or pm.faktur_pajak is not null)
 					
 
 					 """.format(self.date_from,self.date_to),as_list=1)
