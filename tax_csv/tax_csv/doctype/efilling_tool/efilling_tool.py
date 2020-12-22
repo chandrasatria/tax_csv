@@ -358,7 +358,8 @@ class EFillingTool(Document):
 					REPLACE(REPLACE(cus.alamat_pajak, '<br>', ' '),'-',' '),
 					REPLACE(REPLACE(cus.nama_pajak, '<br>', ' '),'-',' '),
 					REPLACE(REPLACE(REPLACE(cus.tax_id, '.', ''),'-',' '),' ',''),
-					cus.`nomor_awalan_pajak`
+					cus.`nomor_awalan_pajak`,
+					cus.nik
 					from `tabSales Invoice` pm
 					left JOIN `tabCustomer` cus ON cus.name=pm.customer
 					where pm.`docstatus` = 1 and pm.is_return != 1 AND pm.`posting_date`  between "{0}" and "{1}"
@@ -461,6 +462,7 @@ class EFillingTool(Document):
 						pk.nomor_faktur =  re.sub('[^0-9]','', str(hoho.faktur_pajak))
 						pk.faktur_export = pk.nomor_faktur
 						nofak = pk.nomor_faktur
+						pk.nik = a[10]
 						
 					# for b in self.get_data_pajak_keluaran :
 
@@ -540,7 +542,8 @@ class EFillingTool(Document):
 					pm.`name`,
 
 					REPLACE(REPLACE(cus.alamat_pajak, '<br>', ' '),'-',' '),
-					REPLACE(REPLACE(cus.nama_pajak, '<br>', ' '),'-',' ')
+					REPLACE(REPLACE(cus.nama_pajak, '<br>', ' '),'-',' '),
+					cus.nik
 
 					from `tabSales Invoice` pm
 					left JOIN `tabCustomer` cus ON cus.name=pm.customer
@@ -571,6 +574,7 @@ class EFillingTool(Document):
 						pk.nomor_faktur =  re.sub('[^0-9]','', str(hoho.faktur_pajak))
 						pk.faktur_export = pk.nomor_faktur
 						nofak = pk.nomor_faktur
+						pk.nik = d[10]
 						
 				else :
 					frappe.throw("Data tidak ditemukan")
