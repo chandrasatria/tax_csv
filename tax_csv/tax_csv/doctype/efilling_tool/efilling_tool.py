@@ -37,7 +37,7 @@ class EFillingTool(Document):
 
 		elif self.kategori == "Faktur Pajak Keluaran" :
 			item_list2=[" "]
-			item_list2.append(['FK', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','ID_KETERANGAN_TAMBAHAN','FG_UANG_MUKA','UANG_MUKA_DPP','UANG_MUKA_PPN','UANG_MUKA_PPNBM','REFERENSI'])
+			item_list2.append(['FK', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'MASA_PAJAK','TAHUN_PAJAK', 'TANGGAL_FAKTUR', 'NPWP','NAMA','NIK','ALAMAT_LENGKAP','JUMLAH_DPP','JUMLAH_PPN','JUMLAH_PPNBM','ID_KETERANGAN_TAMBAHAN','FG_UANG_MUKA','UANG_MUKA_DPP','UANG_MUKA_PPN','UANG_MUKA_PPNBM','REFERENSI'])
 			item_list2.append(['OF','KODE_OBJECT', 'NAMA', 'HARGA_SATUAN', 'JUMLAH_BARANG', 'HARGA_TOTAL','DISKON', 'DPP', 'PPN','TARIF_PPNBM','PPNBM',"","","","","","","",""])
 
 			
@@ -70,6 +70,7 @@ class EFillingTool(Document):
 							str(a.tanggal_faktur),
 							str(a.npwp),
 							str(a.nama),
+							str(a.nik),
 							a.alamat_lengkap,
 							str(a.jumlah_dpp),
 							str(a.jumlah_ppn),
@@ -162,7 +163,7 @@ class EFillingTool(Document):
 										ppn, 
 										tarif_ppnbm,
 										ppnbm,
-										"","","","","","","",""])
+										"","","","","","","","",""])
 
 						else :
 						# 	anak = frappe.db.sql("""
@@ -277,7 +278,7 @@ class EFillingTool(Document):
 
 		elif self.kategori == "Faktur Pajak Retur Keluaran" :
 			item_list4=[" "]
-			item_list4.append(['RK','NPWP','NAMA', 'KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
+			item_list4.append(['RK','NPWP','NAMA','NIK','KD_JENIS_TRANSAKSI', 'FG_PENGGANTI', 'NOMOR_FAKTUR', 'TANGGAL_FAKTUR','NO_DOKUMEN_RETUR', 'TANGGAL_RETUR','MASA_PAJAK_RETUR','TAHUN_PAJAK_RETUR',  'NILAI_RETUR_DPP','NILAI_RETUR_PPN','NILAI_RETUR_PPNBM'])
 			
 			check = 0 
 			for i in self.get_data_retur_keluaran :
@@ -286,7 +287,7 @@ class EFillingTool(Document):
 			if(check==1) : 
 				for a in self.get_data_retur_keluaran :
 					if(a.check==1) :
-						item_list4.append([str(a.rk),str(a.npwp),str(a.nama),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
+						item_list4.append([str(a.rk),str(a.npwp),str(a.nama),str(a.nik),str(a.kd_jenis_transaksi),str(a.fg_pengganti),str(a.nomor_faktur),str(a.tanggal_faktur),str(a.no_dokumen_retur),str(a.tanggal_retur),str(a.masa_pajak_retur),str(a.tahun_pajak_retur),str(a.nilai_retur_dpp),str(a.nilai_retur_ppn),str(a.nilai_retur_ppnbm)])
 
 			return item_list4
 
