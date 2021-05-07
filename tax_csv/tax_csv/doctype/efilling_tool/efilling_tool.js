@@ -3,43 +3,28 @@
 
 frappe.ui.form.on('EFilling Tool', {
 	refresh: function(frm) {
-
 	}
 });
 
-cur_frm.cscript.print_to_excel= function(doc, cdt, cdn) {
-	
-	// $c_obj_csv(doc,"print_to_excel",'','')
-	// let get_template_url = '/api/method/frappe.core.doctype.data_export.exporter.export_data';
+cur_frm.cscript.print_to_excel= function(doc) {
 	let get_template_url = frappe.request.url;
-	// var export_params = () => {
-	// 	let columns = {};
-	// 	Object.keys(frm.fields_multicheck).forEach(dt => {
-	// 		const options = frm.fields_multicheck[dt].get_checked_options();
-	// 		columns[dt] = options;
-	// 	});
-	// 	return {
-	// 		doctype: frm.doc.reference_doctype,
-	// 		select_columns: JSON.stringify(columns),
-	// 		filters: frm.filter_list.get_filters().map(filter => filter.slice(1, 4)),
-	// 		file_type: frm.doc.file_type,
-	// 		template: true,
-	// 		with_data: 1
-	// 	};
-	// };
 
 	var args = {}
-	args.cmd = 'runserverobj';
+	
+	// catatan buat rico >> kuncinya disini..buat manggil runserverobj custom kita
+	// jadi efilling_open_url_post itu cmn manggil API untuk manggil method python
+	args.cmd = 'tax_csv.tax_csv.doctype.efilling_tool.custom_export.runserverobj';
 	args.as_csv = 1;
 	args.method = "print_to_excel";
 	args.arg = "";
 
-	if(doc.substr)
-		args.doctype = doc;
-	else
+	if(doc.substr){
+		args.doctype = doc.doctype;
+	} else{
 		args.docs = doc;
+	}
 
-	open_url_post(get_template_url, args);  
+	efilling_open_url_post(get_template_url, args);
 }
 
 frappe.query_reports["EFilling Tool"] = {
@@ -54,3 +39,32 @@ frappe.query_reports["EFilling Tool"] = {
 
 		]
 }
+
+function efilling_open_url_post(URL, PARAMS, new_window) {
+	if (window.cordova) {
+		let url = URL + 'api/method/' + PARAMS.cmd + frappe.utils.make_query_string(PARAMS, false);
+		window.location.href = url;
+	} else {
+		// call a url as POST
+		var temp=document.createElement("form");
+		temp.action=URL;
+		temp.method="POST";
+		temp.style.display="none";
+		if(new_window){
+			temp.target = '_blank';
+		}
+		PARAMS["csrf_token"] = frappe.csrf_token;
+		for(var x in PARAMS) {
+			var opt=document.createElement("textarea");
+			opt.name=x;
+			var val = PARAMS[x];
+			if(typeof val!='string')
+				val = JSON.stringify(val);
+			opt.value=val;
+			temp.appendChild(opt);
+		}
+		document.body.appendChild(temp);
+		temp.submit();
+		return temp;
+	}
+};
