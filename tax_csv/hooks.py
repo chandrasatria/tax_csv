@@ -90,7 +90,9 @@ doc_events = {
 	"Sales Invoice": {
 
 		# "before_submit": ["tax_csv.tax_csv.doctype.custom_method_tax.isikan_nomor_faktur_pajak"],
-		# "on_submit": ["tax_csv.tax_csv.doctype.custom_method_tax.update_faktur_pajak_sales_invoice_on_submit"],
+		"before_update_after_submit": ["tax_csv.tax_csv.doctype.custom_method_tax.check_faktur_pajak"],
+	 	"validate": ["tax_csv.tax_csv.doctype.custom_method_tax.check_faktur_pajak"],
+	 	"on_submit": ["tax_csv.tax_csv.doctype.custom_method_tax.update_faktur_pajak_sales_invoice_on_submit"],
 		"on_cancel": ["tax_csv.tax_csv.doctype.custom_method_tax.update_faktur_pajak_sales_invoice_on_cancel"],
 	
 	},

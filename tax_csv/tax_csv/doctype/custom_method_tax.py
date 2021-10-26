@@ -13,6 +13,14 @@ class custom_method(Document):
 	# tambahan rico
 
 @frappe.whitelist()
+def check_faktur_pajak(doc,method):
+	if doc.faktur_pajak:
+		check_faktur_pajak = frappe.db.sql(""" SELECT name FROM `tabSales Invoice` 
+			WHERE name != "{}" and faktur_pajak = "{}" AND docstatus = 1 """.format(doc.name,doc.faktur_pajak))
+		if len(check_faktur_pajak) > 0:
+			frappe.throw("{} is used in Sales Invoice {}".format(doc.faktur_pajak, check_faktur_pajak[0][0]))
+
+@frappe.whitelist()
 def isikan_nomor_faktur_pajak(doc, method):
 
 	# query ambil nomor faktur pajak
