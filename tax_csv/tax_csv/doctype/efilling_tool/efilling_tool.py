@@ -12,11 +12,11 @@ from datetime import datetime
 
 
 class EFillingTool(Document):
-
+	@frappe.whitelist()
 	def print_to_excel(self):
 		
 		return self.get_csv()
-
+	@frappe.whitelist()
 	def get_csv(self):
 		if self.kategori == "Faktur Pajak Masukan" :
 			
@@ -291,7 +291,7 @@ class EFillingTool(Document):
 			return item_list4
 
 
-
+	@frappe.whitelist()
 	def get_data(self):
 		
 		if self.date_from and self.date_to :
@@ -585,7 +585,7 @@ class EFillingTool(Document):
 		else :
 			frappe.throw("From dan To harus di isi !")
 
-
+	@frappe.whitelist()
 	def checkall(self) :
 		if self.kategori == "Faktur Pajak Masukan" :
 		
@@ -608,7 +608,7 @@ class EFillingTool(Document):
 	
 			for d in self.get_data_retur_keluaran :
 					d.check=1
-
+	@frappe.whitelist()
 	def uncheckall(self) :
 		if self.kategori == "Faktur Pajak Masukan" :
 		
@@ -632,12 +632,12 @@ class EFillingTool(Document):
 			for d in self.get_data_retur_keluaran :
 					d.check=0
 
-
+	@frappe.whitelist()
 	def validate(self):
 		if self.kategori == "Faktur Pajak Masukan" or self.kategori == "Faktur Pajak Retur Masukan" :
 			self.check_nomorfaktur()
-	
 
+	@frappe.whitelist()
 	def check_nomorfaktur(self) :
 		
 		if self.kategori == "Faktur Pajak Masukan" :
